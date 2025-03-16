@@ -3,6 +3,7 @@
 namespace Umbrella\AdminBundle\Lib\Form;
 
 use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\View\ChoiceView;
 use Symfony\Component\Form\FormInterface;
@@ -11,6 +12,7 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
+use Umbrella\AdminBundle\Lib\Form\Extension\AutoCompleteExtension;
 
 class NestedEntityType extends AbstractType
 {
@@ -59,6 +61,9 @@ class NestedEntityType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
+            ->setDefault(AutoCompleteExtension::AUTOCOMPLETE_OPTION, true);
+
+        $resolver
             ->setDefault('left_path', 'left')
             ->setAllowedTypes('left_path', 'string');
 
@@ -78,7 +83,7 @@ class NestedEntityType extends AbstractType
             ->setDefault('min_level', 0)
             ->setAllowedTypes('min_level', 'int');
 
-        $resolver->setDefault('template', '<div data-lvl="[[ lvl ]]" class="tree-item"> [[ text ]]</div>');
+        $resolver->setDefault('option_template', '<div data-lvl="{{ lvl }}" class="tree-item"> {{ text }}</div>');
 
         $resolver->setDefault('query_builder', fn (Options $options) => function (EntityRepository $er) use ($options) {
             return $er->createQueryBuilder('e')
@@ -88,8 +93,8 @@ class NestedEntityType extends AbstractType
         });
     }
 
-    public function getParent(): ?string
+    public function getParent(): string
     {
-        return UmbrellaEntityType::class;
+        return EntityType::class;
     }
 }

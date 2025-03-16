@@ -2,10 +2,10 @@
   "entrypoints": {
     "umbrella_admin": {
       "css": [
-        "./umbrella_admin.85a1baf4.css"
+        "./umbrella_admin.css"
       ],
       "js": [
-        "./umbrella_admin.c9c6f451.js"
+        "./umbrella_admin.js"
       ]
     }
   }

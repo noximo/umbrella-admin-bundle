@@ -10,6 +10,7 @@ use Umbrella\AdminBundle\Lib\DataTable\DataTableRegistry;
 use Umbrella\AdminBundle\Lib\DataTable\DataTableRenderer;
 use Umbrella\AdminBundle\Lib\DataTable\DataTableType;
 use Umbrella\AdminBundle\Lib\DataTable\Twig\DataTableExtension;
+use Umbrella\AdminBundle\Lib\Form\Extension\AutoCompleteExtension;
 use Umbrella\AdminBundle\Lib\Form\Extension\FormTypeExtension;
 use Umbrella\AdminBundle\Lib\Form\UmbrellaSelect\UmbrellaSelectConfigurator;
 use Umbrella\AdminBundle\Lib\JsResponse\JsResponseFactory;
@@ -72,11 +73,11 @@ return static function (ContainerConfigurator $configurator): void {
         ->tag('doctrine.event_listener', ['event' => Events::preUpdate]);
 
     // -- Form -- //
-    $services->set(UmbrellaSelectConfigurator::class);
     $services->load('Umbrella\\AdminBundle\\Lib\\Form\\', '../src/Lib/Form/*')
-        ->exclude('../src/Lib/Form/UmbrellaSelect')
         ->tag('form.type');
 
     $services->set(FormTypeExtension::class)
+        ->tag('form.type_extension');
+    $services->set(AutoCompleteExtension::class)
         ->tag('form.type_extension');
 };
