@@ -27,6 +27,7 @@ return [
         'edit' => 'Edit',
         'delete' => 'Delete',
         'cancel' => 'Cancel',
+        'confirm' => 'Confirm',
         'close' => 'Close',
         'save' => 'Save',
         'sign_in' => 'Sign in',
@@ -46,6 +47,7 @@ return [
         'item_deleted' => 'Item deleted.',
         'account_updated' => 'Your account has been updated.',
         'password_resetted' => 'Your password has been resetted.',
+        ''
     ],
     'user' => [
         'anonymous' => 'Anonymous',
@@ -88,4 +90,20 @@ EMAIL
     'notification' => [
         'empty' => 'You have no notifications.',
     ],
+    'datatable' => [
+        'no_item_selected' => 'No item selected.',
+        'one_item_selected' => '1 item selected.',
+        'many_item_selected' => '{c} items selected.',
+        'error.load' => 'An error occurred while loading data.',
+    ],
+    'autocomplete' => [
+        'loading_more' => 'Loading more...',
+        'no_results' => 'No results found.',
+    ],
+    'toast' => [
+        'error401' => 'You are not authenticated.',
+        'error403' => 'You are not authorized to perform this action.',
+        'error404' => 'Unable to contact server.',
+        'error' => 'An error occurred.',
+    ]
 ];

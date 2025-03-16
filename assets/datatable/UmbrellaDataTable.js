@@ -2,8 +2,6 @@ import Utils from '../utils/Utils';
 import DataTable from 'datatables.net';
 import 'datatables.net-bs5';
 
-import i18n from './DataTable.i18n.js';
-
 import SelectPlugin from './plugin/SelectPlugin';
 import RowDetailsPlugin from './plugin/RowDetailsPlugin';
 import TreePlugin from './plugin/TreePlugin';
@@ -27,10 +25,6 @@ export default class UmbrellaDataTable extends HTMLElement {
     }
 
     connectedCallback() {
-        if (umbrella.LANG in i18n) {
-            this.options['language'] = i18n[umbrella.LANG];
-        }
-
         this.options['processing'] = true
         this.options['ajax']['data'] = this._ajaxData.bind(this)
         this.options['ajax']['error'] = this._ajaxError.bind(this)
@@ -112,12 +106,10 @@ export default class UmbrellaDataTable extends HTMLElement {
         return data;
     }
     _ajaxError(requestObject, error, errorThrown) {
-        if (requestObject.status === 401) {
-            this.error(umbrella.Translator.trans('disconnected_error'))
-        } else if (requestObject.responseJSON && requestObject.responseJSON.error) {
+        if (requestObject.responseJSON && requestObject.responseJSON.error) {
             this.error(requestObject.responseJSON.error);
         } else {
-            this.error(umbrella.Translator.trans('loading_data_error'))
+            this.error(umbrella.translator.trans('datatable.error.load'))
         }
     }
 

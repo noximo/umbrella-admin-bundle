@@ -38,7 +38,7 @@ export default class SelectPlugin {
 
         // override api
         this.umbrellaDatatable.getState = () => {
-            let state =  this.umbrellaDatatable._getCurrentState()
+            let state = this.umbrellaDatatable._getCurrentState()
             state['ids'] = this.getSelectedIds()
             state['count']['selected'] = state['ids'].length
             return state
@@ -156,7 +156,14 @@ export default class SelectPlugin {
     _updateView() {
         const c = this.state.count()
 
-        this.$selectInfo.textContent = umbrella.Translator.trans('row_selected', {'%c%': c})
+        if (c === 0) {
+            this.$selectInfo.textContent = umbrella.translator.trans('datatable.no_item_selected')
+        } else if (c === 1) {
+            this.$selectInfo.textContent = umbrella.translator.trans('datatable.one_item_selected')
+        } else {
+            this.$selectInfo.textContent = umbrella.translator.trans('datatable.many_item_selected', {'{c}': c})
+        }
+
         this.$unselectAllbtn.hidden = c === 0
 
         this.umbrellaDatatable.querySelectorAll('[data-display=selection]').forEach($elt => $elt.hidden = c === 0)

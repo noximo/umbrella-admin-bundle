@@ -3,7 +3,7 @@ import {Modal, Offcanvas} from 'bootstrap';
 
 export default function configureHandler(handler) {
     handler.registerAction('toast', (params) => {
-        umbrella.Toast.show(params['type'], params['text'], params['title'], params['options']);
+        umbrella.toast.show(params['type'], params['text'], params['title'], params['options']);
     });
 
     handler.registerAction('show_modal', (params) => {
@@ -116,16 +116,16 @@ export default function configureHandler(handler) {
 
     handler.setErrorHandler((requestObject, error, errorThrown) => {
         if (requestObject.status === 401) {
-            umbrella.Toast.warning('401 - ' + umbrella.Translator.trans('unauthorized_error'));
+            umbrella.toast.warning('401 - ' + umbrella.translator.trans('toast.error401'));
 
         } else if (requestObject.status === 403) {
-            umbrella.Toast.warning('403 - ' + umbrella.Translator.trans('forbidden_error'));
+            umbrella.toast.warning('403 - ' + umbrella.translator.trans('toast.error403'));
 
         } else if (requestObject.status === 404) {
-            umbrella.Toast.warning('404 - ' + umbrella.Translator.trans('notfound_error'));
+            umbrella.toast.warning('404 - ' + umbrella.translator.trans('toast.error404'));
 
         } else {
-            umbrella.Toast.error(umbrella.Translator.trans('other_error'));
+            umbrella.toast.error(umbrella.translator.trans('toast.error'));
         }
     })
 

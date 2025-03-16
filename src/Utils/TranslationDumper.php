@@ -30,12 +30,18 @@ class TranslationDumper
 
         foreach ($this->locales as $locale) {
             $catalogue = $this->translator->getCatalogue($locale);
-            $dump[$locale] = [
-                $catalogue->all($this->domain),
-            ];
+            $dump[$locale] = $catalogue->all($this->domain);
         }
 
         return json_encode($dump, \JSON_THROW_ON_ERROR | \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE);
+    }
+
+    public function writeTranslation(string $filename): void
+    {
+        $result = @file_put_contents($filename, $this->dumpTranslationsToJson());
+        if (false === $result) {
+            throw new \RuntimeException(\sprintf('Unable to write translation file "%s".', $filename));
+        }
     }
 
     private function loadResources(): void

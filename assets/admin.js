@@ -15,14 +15,14 @@ import UmbrellaNotification from './UmbrellaNotification';
 import UmbrellaSidebar from './UmbrellaSidebar';
 import UmbrellaAutocomplete from './form/UmbrellaAutocomplete';
 
-const LANG = document.querySelector('html').getAttribute('lang')
+const locale = document.querySelector('html').getAttribute('lang') || 'en'
 
 window.umbrella = {
-    LANG: LANG,
-    Translator: new Translator(LANG),
-    Spinner: Spinner,
-    ConfirmModal: ConfirmModal,
-    Toast: Toast
+    locale,
+    translator: new Translator(locale),
+    spinner: Spinner,
+    confirmModal: ConfirmModal,
+    toast: Toast
 }
 
 // --- DataTable.js

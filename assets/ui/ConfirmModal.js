@@ -29,8 +29,8 @@ class ConfirmModal {
 
         const defaultOptions = {
             text: '',
-            cancel_text: umbrella.Translator.trans('cancel'),
-            confirm_text: umbrella.Translator.trans('confirm'),
+            cancel_text: umbrella.translator.trans('action.cancel'),
+            confirm_text: umbrella.translator.trans('action.confirm'),
             confirm: () => {}
         };
 

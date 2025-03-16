@@ -53,7 +53,7 @@ export default class AjaxUtils {
         }
 
         if ('spinner' in options && true === options['spinner']) {
-            umbrella.Spinner.show({text: options['spinner']});
+            umbrella.spinner.show({text: options['spinner']});
         }
 
         options['success'] = (response) => {
@@ -70,7 +70,7 @@ export default class AjaxUtils {
                 });
             }
 
-            umbrella.Spinner.hide();
+            umbrella.spinner.hide();
         };
 
         // mark request with cutom headers to allow server to identify it
@@ -80,7 +80,7 @@ export default class AjaxUtils {
         options['headers']['xhr-request'] = 'js';
 
         if ('confirm' in options && false !== options['confirm']) {
-            umbrella.ConfirmModal.show({
+            umbrella.confirmModal.show({
                 'text': options['confirm'],
                 'confirm': () => $.ajax(options)
             });
