@@ -3,7 +3,7 @@
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use Umbrella\AdminBundle\Asset\AssetPackage;
-use Umbrella\AdminBundle\Maker\MakeAdminUser;
+use Umbrella\AdminBundle\Maker\MakeAdminSecurity;
 use Umbrella\AdminBundle\Maker\MakeHome;
 use Umbrella\AdminBundle\Maker\MakeNotification;
 use Umbrella\AdminBundle\Maker\MakeTable;
@@ -48,7 +48,7 @@ return static function (ContainerConfigurator $configurator): void {
         ->tag('maker.command');
     $services->set(MakeTree::class)
         ->tag('maker.command');
-    $services->set(MakeAdminUser::class)
+    $services->set(MakeAdminSecurity::class)
         ->tag('maker.command');
     $services->set(MakeNotification::class)
         ->tag('maker.command');

@@ -11,17 +11,12 @@ abstract class BaseAdminUser implements EquatableInterface, \Serializable, UserI
 {
     public ?int $id = null;
 
+    /**
+     * @var \DateTime
+     */
+    public \DateTimeInterface $createdAt;
+
     public ?string $search = null;
-
-    /**
-     * @var ?\DateTime
-     */
-    public ?\DateTimeInterface $createdAt = null;
-
-    /**
-     * @var ?\DateTime
-     */
-    public ?\DateTimeInterface $updatedAt = null;
 
     public bool $active = true;
 
@@ -50,6 +45,11 @@ abstract class BaseAdminUser implements EquatableInterface, \Serializable, UserI
      * @var ?\DateTime
      */
     public ?\DateTimeInterface $passwordRequestedAt = null;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
     public function getFullName(): string
     {

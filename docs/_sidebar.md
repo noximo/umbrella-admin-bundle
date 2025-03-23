@@ -3,16 +3,16 @@
     - [Contributing](contributing)
     - [Changelog](changelog)
 - **Getting Started**
-    - [Quick Start](/getting-started/quick_start)
+    - [Quick Start](getting-started/quick_start)
     - [Create your first page](getting-started/create_home)
-    - [Manage admin user with doctrine](getting-started/manage_user_with_doctrine)
+    - [Configure security](getting-started/configure_security)
     - [Create your first CRUD](getting-started/crud)
 - **Components**
     - Menu
-        - [Quick Start](/component/menu/quick_start)
-        - [Build Admin Menu](/component/menu/admin_menu)
-        - [Current item strategy](/component/menu/current_strategy)
-    - [Notifications](/component/notification)
+        - [Quick Start](component/menu/quick_start)
+        - [Build Admin Menu](component/menu/admin_menu)
+        - [Current item strategy](component/menu/current_strategy)
+    - [Notifications](component/notification)
     - Form
         - [Theme](component/form/theme)
 - [Configuration reference](config/umbrella_admin)

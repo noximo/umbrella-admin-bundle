@@ -10,7 +10,7 @@ use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Umbrella\AdminBundle\Service\UserManagerInterface;
 
-#[AsCommand('umbrella:create:admin_user', 'Create a new admin user.')]
+#[AsCommand('umbrella_admin:create:user', 'Create a new admin user.')]
 class CreateAdminUserCommand extends Command
 {
     private ?SymfonyStyle $io = null;
@@ -32,7 +32,7 @@ class CreateAdminUserCommand extends Command
         $u->firstname = $this->io->askQuestion(new Question('Firstname'));
         $u->lastname = $this->io->askQuestion(new Question('Lastname'));
         $u->email = $this->io->askQuestion(new Question('Email (must be unique)'));
-        $u->plainPassword = $this->io->askQuestion(new Question('Password'));
+        $u->plainPassword = $this->io->askHidden('Password');
 
         $this->userManager->update($u);
 

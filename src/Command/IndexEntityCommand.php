@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Umbrella\AdminBundle\Lib\Search\EntityIndexer;
 
-#[AsCommand('umbrella:index:entity', 'Reindex #[searchable] entity.')]
+#[AsCommand('umbrella_admin:index:entity', 'Reindex #[searchable] entity.')]
 class IndexEntityCommand extends Command
 {
     private ?SymfonyStyle $io = null;

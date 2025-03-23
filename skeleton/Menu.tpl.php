@@ -12,7 +12,7 @@ class AdminMenu extends BaseAdminMenu
     {
         $builder->root()
             ->add('Home')
-                ->icon('mdi mdi-home')
+                ->icon('uil-home')
                 ->route('<?= $route['name_prefix'] ?>_index');
     }
 

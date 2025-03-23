@@ -1,20 +1,3 @@
-const __TRANS = {
-    en: {
-        'row_selected': {
-            '1' : '%c% row selected.',
-            '_': '%c% rows selected.'
-        },
-        'cancel': 'Cancel',
-        'confirm': 'Confirm',
-        'unauthorized_error': 'You are disconnected. Refresh page to login',
-        'forbidden_error': 'You are not allowed to perform this action',
-        'notfound_error': 'Unable to contact server',
-        'other_error' : 'An error occured',
-        'loading_data_error': 'Unable to load data',
-        'no_results': 'No results found'
-    }
-}
-
 import TRANSLATIONS from './umbrella-admin-translations.json'
 
 export default class Translator {
