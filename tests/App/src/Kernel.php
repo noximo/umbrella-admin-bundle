@@ -4,7 +4,6 @@ namespace Umbrella\AdminBundle\Tests\App;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle;
-use Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Bundle\SecurityBundle\SecurityBundle;
@@ -34,7 +33,6 @@ class Kernel extends SymfonyKernel implements CompilerPassInterface
             new FrameworkBundle(),
             new DoctrineBundle(),
             new DoctrineFixturesBundle(),
-            new StofDoctrineExtensionsBundle(),
             new SecurityBundle(),
             new TwigBundle(),
             new UmbrellaAdminBundle()
