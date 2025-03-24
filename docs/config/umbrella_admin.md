@@ -27,9 +27,6 @@ umbrella_admin:
         # The class name of UserManager service.
         manager:              Umbrella\AdminBundle\Service\UserManager
 
-        # The class name of UserMailer service.
-        mailer:               Umbrella\AdminBundle\Service\UserMailer
-
         # Entity class of Admin user.
         class:                App\Entity\AdminUser
 
@@ -39,14 +36,14 @@ umbrella_admin:
         # Form Type class of Admin CRUD.
         form:                 Umbrella\AdminBundle\Form\UserType
 
-        # Name of sender for user email.
-        from_name:            ''
+        # Name of sender for password reset email.
+        password_reset_from_name: ''
 
-        # Email of sender for user email.
-        from_email:           no-reply@umbrella.dev
+        # Email of sender for password reset email.
+        password_reset_from_email: no-reply@umbrella.dev
 
         # Time to live (in s) for request password.
-        password_request_ttl: 86400
+        password_reset_ttl:   86400
         profile:
             enabled:              true
 

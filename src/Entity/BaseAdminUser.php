@@ -11,9 +11,6 @@ abstract class BaseAdminUser implements EquatableInterface, \Serializable, UserI
 {
     public ?int $id = null;
 
-    /**
-     * @var \DateTime
-     */
     public \DateTimeInterface $createdAt;
 
     public ?string $search = null;
@@ -36,15 +33,13 @@ abstract class BaseAdminUser implements EquatableInterface, \Serializable, UserI
     #[SearchableField]
     public ?string $email = null;
 
-    /**
-     * Random string sent to the user email address to verify it.
-     */
-    public ?string $confirmationToken = null;
+    public ?string $passwordResetToken = null;
 
-    /**
-     * @var ?\DateTime
-     */
-    public ?\DateTimeInterface $passwordRequestedAt = null;
+    public ?string $passwordResetSelector = null;
+
+    public ?\DateTimeInterface $passwordResetRequestedAt = null;
+
+    public ?\DateTimeInterface $passwordResetExpiresAt = null;
 
     public function __construct()
     {
@@ -56,15 +51,16 @@ abstract class BaseAdminUser implements EquatableInterface, \Serializable, UserI
         return \sprintf('%s %s', $this->firstname, $this->lastname);
     }
 
-    public function generateConfirmationToken(): void
+    public function isPasswordResetExpired(): bool
     {
-        $this->confirmationToken = rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
+        return $this->passwordResetExpiresAt->getTimestamp() <= time();
     }
 
-    public function isPasswordRequestNonExpired(int $ttl): bool
+    public function erasePasswordReset(): void
     {
-        return $this->passwordRequestedAt instanceof \DateTime
-            && $this->passwordRequestedAt->getTimestamp() + $ttl > time();
+        $this->passwordResetToken = null;
+        $this->passwordResetSelector = null;
+        $this->passwordResetExpiresAt = null;
     }
 
     // Equatable implementation
@@ -117,8 +113,6 @@ abstract class BaseAdminUser implements EquatableInterface, \Serializable, UserI
     public function setPassword(?string $password): void
     {
         $this->password = $password;
-        $this->passwordRequestedAt = null;
-        $this->confirmationToken = null;
     }
 
     public function getPassword(): ?string

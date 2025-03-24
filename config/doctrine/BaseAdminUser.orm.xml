@@ -12,8 +12,10 @@
         <field name="lastname" type="string" length="255" nullable="true"/>
         <field name="password" type="string" />
         <field name="email" type="string" length="60" unique="true"/>
-        <field name="confirmationToken" type="string" length="180" unique="true" nullable="true"/>
-        <field name="passwordRequestedAt" type="datetime" nullable="true"/>
+        <field name="passwordResetToken" type="string" length="100" nullable="true"/>
+        <field name="passwordResetSelector" type="string" length="30" nullable="true"/>
+        <field name="passwordResetRequestedAt" type="datetime" nullable="true"/>
+        <field name="passwordResetExpiresAt" type="datetime" nullable="true"/>
     </mapped-superclass>
 
 </doctrine-mapping>

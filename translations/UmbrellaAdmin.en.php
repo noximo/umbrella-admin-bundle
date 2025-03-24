@@ -71,7 +71,10 @@ return [
         ],
         'success' => [
             'title' => 'Check your emails',
-            'text' => 'An email was sent to <b>%email%</b>. Check your mailbox and follow instructions given.'
+            'text' => <<<HTML
+<p>If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.</p>
+<p>If you don't receive an email please check your spam folder or try again.</p>
+HTML
         ],
         'reset' => 'Reset your password',
         'back_login_link' => 'Forget it, <a href="%url%">send me back</a> to the sign in screen.',

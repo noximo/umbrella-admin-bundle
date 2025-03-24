@@ -8,9 +8,10 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 use function Symfony\Component\Translation\t;
 
-use Umbrella\AdminBundle\Form\UserPasswordConfirmType;
+use Umbrella\AdminBundle\Exception\ResetPasswordException;
+use Umbrella\AdminBundle\Form\ChangePasswordType;
+use Umbrella\AdminBundle\Form\ResetPasswordRequestType;
 use Umbrella\AdminBundle\Lib\Controller\AdminController;
-use Umbrella\AdminBundle\Service\UserMailerInterface;
 use Umbrella\AdminBundle\Service\UserManagerInterface;
 use Umbrella\AdminBundle\UmbrellaAdminConfiguration;
 
@@ -19,8 +20,10 @@ class SecurityController extends AdminController
     public const LOGIN_ROUTE = 'umbrella_admin_login';
     public const LOGOUT_ROUTE = 'umbrella_admin_logout';
 
-    public function __construct(protected readonly UserManagerInterface $userManager, protected readonly UmbrellaAdminConfiguration $config)
-    {
+    public function __construct(
+        protected readonly UserManagerInterface $userManager,
+        protected readonly UmbrellaAdminConfiguration $config
+    ) {
     }
 
     public function login(AuthenticationUtils $authenticationUtils): Response
@@ -42,53 +45,49 @@ class SecurityController extends AdminController
         throw new \LogicException();
     }
 
-    public function passwordRequest(UserMailerInterface $userMailer, Request $request): Response
+    public function passwordResetRequest(Request $request): Response
     {
-        // form submitted
-        if ($request->isMethod('POST')) {
-            $email = (string) $request->request->get('email');
-            $user = $this->userManager->findOneByEmail($email);
+        $form = $this->createForm(ResetPasswordRequestType::class);
+        $form->handleRequest($request);
 
-            if (null !== $user) {
-                $user->generateConfirmationToken();
-                $user->passwordRequestedAt = new \DateTime('NOW');
-                $this->userManager->update($user);
-                $userMailer->sendPasswordRequest($user);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $email = $form->get('email')->getData();
+
+            try {
+                $this->userManager->sendResetPasswordEmail($email);
+            } catch (ResetPasswordException $e) {
+                // proceed as success
             }
 
-            return $this->redirectToRoute('umbrella_admin_security_passwordrequestsuccess', [
-                'email' => $email,
-            ]);
+            return $this->redirectToRoute('umbrella_admin_security_passwordresetcheckemail');
         }
 
-        return $this->render('@UmbrellaAdmin/security/password_request.html.twig', [
-            'email' => $request->query->get('email')
+        return $this->render('@UmbrellaAdmin/security/password_reset_request.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 
-    public function passwordRequestSuccess(Request $request): Response
+    public function passwordRequestCheckEmail(): Response
     {
-        return $this->render('@UmbrellaAdmin/security/password_request_success.html.twig', [
-            'email' => $request->query->get('email'),
-        ]);
+        return $this->render('@UmbrellaAdmin/security/password_reset_check_email.html.twig');
     }
 
     public function passwordReset(Request $request, string $token): Response
     {
-        $user = $this->userManager->findOneByConfirmationToken($token);
-
-        if (null === $user || !$user->isPasswordRequestNonExpired($this->config->userPasswordRequestTtl())) {
+        try {
+            $user = $this->userManager->validateResetPasswordTokenAndFetchUser($token);
+        } catch (ResetPasswordException $e) {
             return $this->render('@UmbrellaAdmin/security/password_reset_error.html.twig');
         }
 
-        $form = $this->createForm(UserPasswordConfirmType::class, $user);
+        $form = $this->createForm(ChangePasswordType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->userManager->update($user);
+            $this->userManager->updatePassword($user);
+            $this->userManager->save($user);
 
             $this->toastSuccess(t('message.password_resetted', [], 'UmbrellaAdmin'));
-
             return $this->redirectToRoute(self::LOGIN_ROUTE);
         }
 

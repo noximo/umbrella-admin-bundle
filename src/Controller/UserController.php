@@ -13,8 +13,10 @@ use Umbrella\AdminBundle\UmbrellaAdminConfiguration;
 
 class UserController extends AdminController
 {
-    public function __construct(private readonly UmbrellaAdminConfiguration $config)
-    {
+    public function __construct(
+        private readonly UmbrellaAdminConfiguration $config,
+        private readonly UserManagerInterface $userManager,
+    ) {
     }
 
     public function index(Request $request): Response
@@ -31,12 +33,12 @@ class UserController extends AdminController
         ]);
     }
 
-    public function edit(UserManagerInterface $manager, Request $request, ?int $id = null): Response
+    public function edit(Request $request, ?int $id = null): Response
     {
         if (null === $id) {
-            $entity = $manager->create();
+            $entity = $this->userManager->create();
         } else {
-            $entity = $manager->find($id);
+            $entity = $this->userManager->find($id);
             $this->throwNotFoundExceptionIfNull($entity);
         }
 
@@ -47,7 +49,8 @@ class UserController extends AdminController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $manager->update($entity);
+            $this->userManager->updatePassword($entity);
+            $this->userManager->save($entity);
 
             return $this->js()
                 ->closeModal()
@@ -62,11 +65,12 @@ class UserController extends AdminController
             ]);
     }
 
-    public function delete(UserManagerInterface $manager, int $id): Response
+    public function delete(int $id): Response
     {
-        $entity = $manager->find($id);
+        $entity = $this->userManager->find($id);
         $this->throwNotFoundExceptionIfNull($entity);
-        $manager->delete($entity);
+
+        $this->userManager->delete($entity);
 
         return $this->js()
             ->closeModal()

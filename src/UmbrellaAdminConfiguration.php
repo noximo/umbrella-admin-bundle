@@ -2,6 +2,7 @@
 
 namespace Umbrella\AdminBundle;
 
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Security\Http\Logout\LogoutUrlGenerator;
 
 class UmbrellaAdminConfiguration
@@ -65,19 +66,14 @@ class UmbrellaAdminConfiguration
         return $this->config['user']['form'];
     }
 
-    public function userMailerFromEmail(): string
+    public function userPasswordResetEmailAddress(): Address
     {
-        return $this->config['user']['from_email'];
+        return new Address($this->config['user']['password_reset_from_email'], $this->config['user']['password_reset_from_name'] ?? '');
     }
 
-    public function userMailerFromName(): string
+    public function userPasswordResetTtl(): int
     {
-        return $this->config['user']['from_name'];
-    }
-
-    public function userPasswordRequestTtl(): int
-    {
-        return $this->config['user']['password_request_ttl'];
+        return $this->config['user']['password_reset_ttl'];
     }
 
     public function userProfileEnable(): bool

@@ -33,7 +33,8 @@ class ProfileController extends AdminController
         $settingsForm->handleRequest($request);
 
         if ($settingsForm->isSubmitted() && $settingsForm->isValid()) {
-            $this->userManager->update($user);
+            $this->userManager->updatePassword($user);
+            $this->userManager->save($user);
 
             $this->toastSuccess(t('message.account_updated', [], 'UmbrellaAdmin'));
 

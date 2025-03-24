@@ -9,7 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Umbrella\AdminBundle\Lib\Form\PasswordTogglableType;
 use Umbrella\AdminBundle\UmbrellaAdminConfiguration;
 
-class UserPasswordConfirmType extends AbstractType
+class ChangePasswordType extends AbstractType
 {
     public function __construct(private readonly UmbrellaAdminConfiguration $config)
     {

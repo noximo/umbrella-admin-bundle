@@ -10,7 +10,6 @@ use Umbrella\AdminBundle\DataTable\UserTableType;
 use Umbrella\AdminBundle\Form\ProfileType;
 use Umbrella\AdminBundle\Form\UserType;
 use Umbrella\AdminBundle\Menu\BaseAdminMenu;
-use Umbrella\AdminBundle\Service\UserMailer;
 use Umbrella\AdminBundle\Service\UserManager;
 
 /**
@@ -66,10 +65,6 @@ class Configuration implements ConfigurationInterface
             ->info('The class name of UserManager service.')
             ->defaultValue(UserManager::class);
 
-        $u->scalarNode('mailer')
-            ->info('The class name of UserMailer service.')
-            ->defaultValue(UserMailer::class);
-
         $u->scalarNode('class')
             ->info('Entity class of Admin user.')
             ->defaultValue('App\\Entity\\AdminUser');
@@ -82,15 +77,15 @@ class Configuration implements ConfigurationInterface
             ->info('Form Type class of Admin CRUD.')
             ->defaultValue(UserType::class);
 
-        $u->scalarNode('from_name')
-            ->info('Name of sender for user email.')
+        $u->scalarNode('password_reset_from_name')
+            ->info('Name of sender for password reset email.')
             ->defaultValue('');
 
-        $u->scalarNode('from_email')
-            ->info('Email of sender for user email.')
+        $u->scalarNode('password_reset_from_email')
+            ->info('Email of sender for password reset email.')
             ->defaultValue('no-reply@umbrella.dev');
 
-        $u->integerNode('password_request_ttl')
+        $u->integerNode('password_reset_ttl')
             ->info('Time to live (in s) for request password.')
             ->defaultValue(86400);
 

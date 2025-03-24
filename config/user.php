@@ -6,10 +6,9 @@ use Umbrella\AdminBundle\Command\CreateAdminUserCommand;
 use Umbrella\AdminBundle\Controller\SecurityController;
 use Umbrella\AdminBundle\Controller\UserController;
 use Umbrella\AdminBundle\DataTable\UserTableType;
-use Umbrella\AdminBundle\Form\UserPasswordConfirmType;
+use Umbrella\AdminBundle\Form\ChangePasswordType;
 use Umbrella\AdminBundle\Form\UserType;
 use Umbrella\AdminBundle\Security\UserChecker;
-use Umbrella\AdminBundle\Service\UserMailer;
 use Umbrella\AdminBundle\Service\UserManager;
 
 return static function (ContainerConfigurator $configurator): void {
@@ -36,9 +35,8 @@ return static function (ContainerConfigurator $configurator): void {
         ->tag('umbrella.datatable.type');
 
     $services->set(UserManager::class);
-    $services->set(UserMailer::class);
 
-    $services->set(UserPasswordConfirmType::class)
+    $services->set(ChangePasswordType::class)
         ->tag('form.type');
     $services->set(UserType::class)
         ->tag('form.type');

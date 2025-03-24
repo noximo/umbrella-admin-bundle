@@ -16,14 +16,14 @@ return function (RoutingConfigurator $routes) {
         ->controller([SecurityController::class, 'logout']);
 
     $routes
-        ->add('umbrella_admin_security_passwordrequest', '/password_request')
-        ->controller([SecurityController::class, 'passwordRequest']);
+        ->add('umbrella_admin_security_passwordresetrequest', '/password-reset')
+        ->controller([SecurityController::class, 'passwordResetRequest']);
 
     $routes
-        ->add('umbrella_admin_security_passwordrequestsuccess', '/password_request_success')
-        ->controller([SecurityController::class, 'passwordRequestSuccess']);
+        ->add('umbrella_admin_security_passwordresetcheckemail', '/password-reset/check-email')
+        ->controller([SecurityController::class, 'passwordRequestCheckEmail']);
 
     $routes
-        ->add('umbrella_admin_security_passwordreset', '/password_reset/{token}')
+        ->add('umbrella_admin_security_passwordreset', '/password-reset/{token}')
         ->controller([SecurityController::class, 'passwordReset']);
 };

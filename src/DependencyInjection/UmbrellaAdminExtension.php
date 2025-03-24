@@ -17,7 +17,6 @@ use Umbrella\AdminBundle\Lib\Menu\MenuRegistry;
 use Umbrella\AdminBundle\Lib\Menu\MenuType;
 use Umbrella\AdminBundle\Lib\Menu\Visitor\MenuVisitor;
 use Umbrella\AdminBundle\Notification\NotificationProviderInterface;
-use Umbrella\AdminBundle\Service\UserMailerInterface;
 use Umbrella\AdminBundle\Service\UserManagerInterface;
 use Umbrella\AdminBundle\UmbrellaAdminConfiguration;
 
@@ -68,7 +67,6 @@ class UmbrellaAdminExtension extends Extension
     {
         $loader->load('user.php');
         $container->setAlias(UserManagerInterface::class, $config['user']['manager']);
-        $container->setAlias(UserMailerInterface::class, $config['user']['mailer']);
         $container->setParameter('umbrella_admin.user.class', $config['user']['class']);
 
         if ($config['user']['profile']['enabled']) {

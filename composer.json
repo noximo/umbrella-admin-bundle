@@ -15,6 +15,12 @@
             "email": "adrien.cantepie@gmail.com"
         }
     ],
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../umbrella-admin-bundle"
+        }
+    ],
     "require": {
         "php": ">=8.2",
         "ext-ctype": "*",

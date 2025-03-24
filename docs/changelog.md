@@ -17,6 +17,8 @@ dev
  * Drop support for ckeditor4 (use https://github.com/egeloen/IvoryCKEditorBundle)
  * Remove **UmbrellaChoiceType**, **UmbrellaEntityType** replaced by **AutocompleteExtensionType** and **AutocompleteType** 
  * **Merge 2 legacy bundles into One**
+ * User : remove **UserMailerInterface**, logic was moved on **UserMailerInterface**. **UserManagerInterface** was reworked (BC)
+ * Security : Use hash to store password reset token on database
 
 ## Legacy versions
 
