@@ -20,32 +20,36 @@ CHANGELOG
  * User : remove **UserMailerInterface**, logic was moved on **UserMailerInterface**. **UserManagerInterface** was reworked (BC)
  * Security : Use hash to store password reset token on database
  * Maker : improve maker
- 
-Legacy versions
----
 
-### 6.3
+## Legacy versions
+
+6.3
+---
  * DataTable : EntityAdapter / NestedEntityAdapterType : add option `em` to specify which dbal connection is used
  * Update Js dependency, use webpack 5
  * Drop support for php 8.0
 
 
-### 6.2
+6.2
+---
  * Fix : UmbrellaCollectionType with dropdowns hide the scrollbar #34
  * Fix : Opening second level menu closes parent #33
  * Fix : Cannot get ckeditor config to work #32
 
-### 6.1
+6.1
+---
  * DataTable : add option `$resetPaging` for method `JsResponseBuilder::reloadTable()` to reset paging , add `umbrella_core.datatable.reset_paging_on_reload` to configure default behaviour of `$resetPaging` param.
 
-### 6.0
+6.0
+---
  * Drop support for php 7.4
  * Drop support for symfony 5.4
  * Replace @Searchable and @SearchableField annotation by php8 attribute
  * Replace @Route annotation on Maker by php8 attribute
  * Use doctrine attribute
 
-### 5.0
+5.0
+---
  * Menu :
    * Add `url()` and `target()` methods on MenuBuilder
  * DataTable :
@@ -74,7 +78,8 @@ Legacy versions
      * `@UmbrellaAdminBundle/config/routes/user.php` + `@UmbrellaAdminBundle/config/routes/security.php` instead of `@UmbrellaAdminBundle/config/routes/user.yaml`
      * `@UmbrellaAdminBundle/config/routes/notification.php` instead of `@UmbrellaAdminBundle/config/routes/notification.yaml`
 
-### 4.4
+4.4
+---
  * Add alias `UserMailerInterface` and `UserManagerInterface`  to allowing services `UserMailer` and `UserManager`to be overriden.
  * Add `template` options for Menu and Breadcrumb
  * Add `Offcanvas`
@@ -85,15 +90,20 @@ Legacy versions
  * Remove `ChoiceTypeExtension` => option `choices_as_values` was removed on `ChoiceType`
  * Use XML mapping instead of annotation mapping for doctrine
 
-### 4.3
+4.3
+---
 * Rework `Menu` component to use context options on build and render.
 
-### 4.2
+4.2
+---
 * Remove `HTMLUtils`.
 
-### 4.1
+4.1
+---
 
-### 4.0
+4.0
+---
+
 * Change minimun Symfony requirments to `Symfony` version `5.4`
 * Remove `Hyper` theme, use `AdminKit` theme (Free version with MIT licence)
 * Remove js library `select2.js`, replaced by `Tom Select`.
