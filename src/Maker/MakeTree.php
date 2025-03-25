@@ -122,7 +122,6 @@ class MakeTree extends AbstractMaker
             <<<'CONFIG'
             # packages/config/stof_doctrine_extensions.yaml
             stof_doctrine_extensions:
-                default_locale: en_US
                 orm:
                     default:
                         tree: true
