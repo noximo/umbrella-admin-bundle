@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-dev
+6.4.0
 ---
  * Drop support for php 8.1
  * Drop support for symfony version < 6.4
@@ -19,6 +19,7 @@ dev
  * **Merge 2 legacy bundles into One**
  * User : remove **UserMailerInterface**, logic was moved on **UserMailerInterface**. **UserManagerInterface** was reworked (BC)
  * Security : Use hash to store password reset token on database
+ * Maker : improve maker
 
 ## Legacy versions
 
