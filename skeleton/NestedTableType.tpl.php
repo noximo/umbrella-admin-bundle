@@ -6,6 +6,7 @@ use <?= $entity->getFullName() ?>;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Umbrella\AdminBundle\Lib\DataTable\Action\ButtonAddActionType;
 use Umbrella\AdminBundle\Lib\DataTable\Column\ActionColumnType;
+use Umbrella\AdminBundle\Lib\DataTable\Column\PropertyColumnType;
 use Umbrella\AdminBundle\Lib\DataTable\ColumnActionBuilder;
 use Umbrella\AdminBundle\Lib\DataTable\DataTableBuilder;
 use Umbrella\AdminBundle\Lib\DataTable\DataTableType;
@@ -21,7 +22,9 @@ class <?= $class_name ?> extends DataTableType
 <?php } ?>
         ]);
 
-        $builder->add('id');
+        $builder->add('id', PropertyColumnType::class, [
+            'render' => fn(<?= $entity->getShortName() ?> $e) => sprintf('# %d', $e->id)
+        ]);
         $builder->add('__action__', ActionColumnType::class, [
             'build' => function (ColumnActionBuilder $builder, <?= $entity->getShortName() ?> $e) {
                 $builder->moveLinks([

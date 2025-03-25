@@ -57,6 +57,8 @@ class MakeTable extends AbstractMaker
         $table = $generator->createClassNameDetails($entityClass, 'DataTable\\', 'TableType');
         $controller = $generator->createClassNameDetails($controllerClass, 'Controller\\', 'Controller');
 
+        $routeConfig = $this->helper->getRouteConfig($controller);
+
         $vars = [
             'entity' => $entity,
             'entity_searchable' => $entitySearchable,
@@ -65,7 +67,7 @@ class MakeTable extends AbstractMaker
             'table' => $table,
             'tree_table' => false,
             'controller' => $controller,
-            'route' => $this->helper->getRouteConfig($controller),
+            'route' => $routeConfig,
             'index_template' => '@UmbrellaAdmin/datatable.html.twig',
             'edit_view_type' => $editViewType,
             'edit_template' => Str::asFilePath($controller->getRelativeNameWithoutSuffix()) . '/edit.html.twig'
@@ -111,6 +113,21 @@ class MakeTable extends AbstractMaker
         );
 
         $generator->writeChanges();
+        $this->successMessage($io, $routeConfig['base_path'], $routeConfig['name_prefix'] . '_index');
+    }
+
+    private function successMessage(ConsoleStyle $io, string $path, string $route): void
+    {
         $this->writeSuccessMessage($io);
+
+        $io->text([
+            'Next:',
+            '  1) Update your database schema with command <fg=yellow>"php bin/console doctrine:schema:update --force"</>.',
+            \sprintf('  2) Add section for route <fg=yellow>"%s"</> on your Admin menu.', $route)
+        ]);
+
+        $io->newLine();
+        $io->writeln(\sprintf('Open your browser, go to "%s" and enjoy!', $path));
+        $io->newLine();
     }
 }

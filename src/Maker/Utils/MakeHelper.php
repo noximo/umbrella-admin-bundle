@@ -144,9 +144,4 @@ class MakeHelper
 
         return file_get_contents($this->absolutizePath($path));
     }
-
-    public function writeFileContents(string $path, string $content): void
-    {
-        file_put_contents($this->absolutizePath($path), $content);
-    }
 }

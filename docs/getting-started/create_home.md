@@ -1,6 +1,6 @@
 # Create your first admin page
 
-Run the following command to generate the basic structure :
+Run maker
 ```bash
 php bin/console make:admin:home
 ```

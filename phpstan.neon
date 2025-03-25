@@ -11,3 +11,4 @@ parameters:
     checkInternalClassCaseSensitivity: true
     ignoreErrors:
         - '#Trait [a-zA-Z0-9\\_]+ is used zero times and is not analysed#'
+        - '#Class Stof\\DoctrineExtensionsBundle\\StofDoctrineExtensionsBundle not found#'

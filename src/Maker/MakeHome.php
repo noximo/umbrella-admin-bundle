@@ -11,7 +11,6 @@ use Symfony\Bundle\MakerBundle\Str;
 use Symfony\Bundle\MakerBundle\Util\YamlSourceManipulator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Umbrella\AdminBundle\Maker\Utils\MakeHelper;
 
 class MakeHome extends AbstractMaker
@@ -74,13 +73,13 @@ class MakeHome extends AbstractMaker
             $this->helper->template('template_home.tpl.php'),
             $vars
         );
+        $this->updateMenuConfig($io, $generator, $menu->getFullName());
 
         $generator->writeChanges();
-        $this->updateMenuConfig($io, $menu->getFullName());
-        $this->writeSuccessMessage($io);
+        $this->successMessage($io);
     }
 
-    private function updateMenuConfig(SymfonyStyle $io, string $menuClass): void
+    private function updateMenuConfig(ConsoleStyle $io, Generator $generator, string $menuClass): void
     {
         $configPath = 'config/packages/umbrella_admin.yaml';
 
@@ -94,7 +93,14 @@ class MakeHome extends AbstractMaker
         $data['umbrella_admin']['menu'] = $menuClass;
         $manipulator->setData($data);
 
-        $this->helper->writeFileContents($configPath, $manipulator->getContents());
-        $io->writeln(\sprintf(' <fg=yellow>updated</>: %s', $configPath));
+        $generator->dumpFile($configPath, $manipulator->getContents());
+    }
+
+    private function successMessage(ConsoleStyle $io): void
+    {
+        $this->writeSuccessMessage($io);
+        $io->newLine();
+        $io->text('Open your browser, go to "/admin" and enjoy!');
+        $io->newLine();
     }
 }

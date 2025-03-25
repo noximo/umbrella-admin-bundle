@@ -67,18 +67,15 @@ class MakeAdminSecurity extends AbstractMaker
             $vars
         );
 
-        $generator->writeChanges();
-        $this->updateRouteConfig($io);
-        $this->updateUserConfig($io, $entity->getFullName());
-        $this->updateSecurityConfig($io, $entity->getFullName());
-        $this->writeSuccessMessage($io);
+        $this->updateRouteConfig($io, $generator);
+        $this->updateUmbrellaAdminConfig($io, $generator, $entity->getFullName());
+        $this->updateSecurityConfig($io, $generator, $entity->getFullName());
 
-        $io->writeln('');
-        $io->writeln('Read more about it on <href=https://acantepie.github.io/umbrella-admin-bundle/#/getting-started/manage_user_with_doctrine>Documentation</>');
-        $io->writeln('');
+        $generator->writeChanges();
+        $this->successMessage($io);
     }
 
-    private function updateRouteConfig(SymfonyStyle $io): void
+    private function updateRouteConfig(ConsoleStyle $io, Generator $generator): void
     {
         $configPath = 'config/routes.yaml';
 
@@ -119,12 +116,10 @@ class MakeAdminSecurity extends AbstractMaker
         ];
 
         $manipulator->setData($data);
-        $this->helper->writeFileContents($configPath, $manipulator->getContents());
-
-        $io->writeln(\sprintf(' <fg=yellow>updated</>: %s', $configPath));
+        $generator->dumpFile($configPath, $manipulator->getContents());
     }
 
-    private function updateUserConfig(SymfonyStyle $io, string $userClass): void
+    private function updateUmbrellaAdminConfig(SymfonyStyle $io, Generator $generator, string $userClass): void
     {
         $configPath = 'config/packages/umbrella_admin.yaml';
 
@@ -137,12 +132,10 @@ class MakeAdminSecurity extends AbstractMaker
         $data['umbrella_admin']['user']['class'] = $userClass;
 
         $manipulator->setData($data);
-        $this->helper->writeFileContents($configPath, $manipulator->getContents());
-
-        $io->writeln(\sprintf(' <fg=yellow>updated</>: %s', $configPath));
+        $generator->dumpFile($configPath, $manipulator->getContents());
     }
 
-    private function updateSecurityConfig(SymfonyStyle $io, string $userClass): void
+    private function updateSecurityConfig(SymfonyStyle $io, Generator $generator, string $userClass): void
     {
         $configPath = 'config/packages/security.yaml';
 
@@ -191,8 +184,25 @@ class MakeAdminSecurity extends AbstractMaker
         ];
 
         $manipulator->setData($data);
-        $this->helper->writeFileContents($configPath, $manipulator->getContents());
+        $generator->dumpFile($configPath, $manipulator->getContents());
+    }
 
-        $io->writeln(\sprintf(' <fg=yellow>updated</>: %s', $configPath));
+    private function successMessage(ConsoleStyle $io): void
+    {
+        $this->writeSuccessMessage($io);
+
+        $io->text([
+            'Next:',
+            '  1) Update your database schema with command <fg=yellow>"php bin/console doctrine:schema:update --force"</>.',
+            '  2) Generate an admin user with command <fg=yellow>"php bin/console umbrella_admin:create:user"</>.',
+            '  3) Add section for route <fg=yellow>"umbrella_admin_user_index"</> on your Admin menu.',
+        ]);
+
+        $io->newLine();
+        $io->writeln('Open your browser, go to "/admin" to login');
+        $io->writeln('Once logged, go to "/admin/user" to manage user');
+        $io->newLine();
+        $io->writeln('Read more about it on <href=https://acantepie.github.io/umbrella-admin-bundle/#/getting-started/configure_security>Documentation</>');
+        $io->newLine();
     }
 }

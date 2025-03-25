@@ -2,6 +2,7 @@
 
 namespace Umbrella\AdminBundle\Maker;
 
+use Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle;
 use Symfony\Bundle\MakerBundle\ConsoleStyle;
 use Symfony\Bundle\MakerBundle\DependencyBuilder;
 use Symfony\Bundle\MakerBundle\Generator;
@@ -37,6 +38,7 @@ class MakeTree extends AbstractMaker
 
     public function configureDependencies(DependencyBuilder $dependencies): void
     {
+        $dependencies->addClassDependency(StofDoctrineExtensionsBundle::class, 'stof/doctrine-extensions-bundle');
     }
 
     public function interact(InputInterface $input, ConsoleStyle $io, Command $command): void
@@ -56,6 +58,8 @@ class MakeTree extends AbstractMaker
         $table = $generator->createClassNameDetails($entityClass, 'DataTable\\', 'TableType');
         $controller = $generator->createClassNameDetails($controllerClass, 'Controller\\', 'Controller');
 
+        $routeConfig = $this->helper->getRouteConfig($controller);
+
         $vars = [
             'entity' => $entity,
             'entity_searchable' => false,
@@ -64,7 +68,7 @@ class MakeTree extends AbstractMaker
             'table' => $table,
             'tree_table' => true,
             'controller' => $controller,
-            'route' => $this->helper->getRouteConfig($controller),
+            'route' => $routeConfig,
             'index_template' => '@UmbrellaAdmin/datatable.html.twig',
             'edit_view_type' => $editViewType,
             'edit_template' => Str::asFilePath($controller->getRelativeNameWithoutSuffix()) . '/edit.html.twig'
@@ -104,6 +108,30 @@ class MakeTree extends AbstractMaker
         );
 
         $generator->writeChanges();
+        $this->successMessage($io, $routeConfig['base_path'], $routeConfig['name_prefix'] . '_index');
+    }
+
+    private function successMessage(ConsoleStyle $io, string $path, string $route): void
+    {
         $this->writeSuccessMessage($io);
+
+        $io->text([
+            'Next:',
+            '  1) Update your database schema with command <fg=yellow>"php bin/console doctrine:schema:update --force"</>.',
+            '  2) Activate tree extension for StofDoctrineExtensionsBundle (check <href=https://symfony.com/bundles/StofDoctrineExtensionsBundle/current/configuration.html>Documentation</>), example :',
+            <<<'CONFIG'
+            # packages/config/stof_doctrine_extensions.yaml
+            stof_doctrine_extensions:
+                default_locale: en_US
+                orm:
+                    default:
+                        tree: true
+            CONFIG,
+            \sprintf('  3) Add section for route <fg=yellow>"%s"</> on your Admin menu.', $route)
+        ]);
+
+        $io->newLine();
+        $io->writeln(\sprintf('Open your browser, go to "%s" and enjoy!', $path));
+        $io->newLine();
     }
 }
