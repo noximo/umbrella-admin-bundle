@@ -54,7 +54,6 @@ abstract class AdminController extends AbstractController
     protected function persistAndFlush(object $elem, ?string $managerName = null): void
     {
         $em = $this->em($managerName);
-
         $em->persist($elem);
         $em->flush();
     }
@@ -62,7 +61,6 @@ abstract class AdminController extends AbstractController
     protected function removeAndFlush(object $elem, ?string $managerName = null): void
     {
         $em = $this->em($managerName);
-
         $em->remove($elem);
         $em->flush();
     }

@@ -1,4 +1,4 @@
-name: Static analysis - phpstan
+name: Phpstan
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   phpstan:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Setup PHP
@@ -18,8 +18,8 @@ jobs:
           ini-values: "memory_limit=-1"
           coverage: none
 
-      - name: Checkout target branch
-        uses: actions/checkout@v2
+      - name: 'Checkout code'
+        uses: actions/checkout@v4
 
       - name: 'Install project dependencies'
         run: |

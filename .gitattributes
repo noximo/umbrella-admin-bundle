@@ -1,0 +1,16 @@
+/.github export-ignore
+/.gitattributes export-ignore
+/.gitignore export-ignore
+/.php-cs-fixer.dist.php export-ignore
+/tests export-ignore
+/Makefile export-ignore
+/phpunit.xml.dist export-ignore
+/phpstan.neon export-ignore
+/webpack.config.js export-ignore
+/yarn.lock export-ignore
+/.yarn export-ignore
+/.yarnrc.yml export-ignore
+/.eslintrc.js
+/bin export-ignore
+/docs export-ignore
+/screenshot.png export-ignore

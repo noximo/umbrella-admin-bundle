@@ -1,0 +1,29 @@
+name: Release
+
+permissions:
+    contents: write
+    actions: write
+
+on:
+    workflow_dispatch:
+        inputs:
+            version_type:
+                description: 'Version type'
+                required: true
+                default: 'patch'
+                type: choice
+                options:
+                    - major
+                    - minor
+                    - patch
+jobs:
+    release:
+        name: Create ${{ inputs.version_type }} release
+        runs-on: ubuntu-24.04
+        steps:
+            -   uses: actions/checkout@v4
+            -   name: Updating version
+                run: |
+                    git config --global user.name "github-actions[bot]"
+                    git config --global user.email "github-actions[bot]@users.noreply.github.com"
+                    bin/create-version.sh ${{ inputs.version_type }}

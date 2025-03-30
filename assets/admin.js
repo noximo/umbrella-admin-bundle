@@ -22,8 +22,12 @@ window.umbrella = {
     translator: new Translator(locale),
     spinner: Spinner,
     confirmModal: ConfirmModal,
-    toast: Toast
+    toast: Toast,
+    jsResponseHandler: new JsResponseHandler()
 }
+
+// --- Configure jsResponseHandler
+configureHandler(umbrella.jsResponseHandler);
 
 // --- DataTable.js
 customElements.define('umbrella-datatable', UmbrellaDataTable);
@@ -38,11 +42,6 @@ customElements.define('password-togglable', PasswordTogglable, {extends: 'div'})
 customElements.define('umbrella-notification', UmbrellaNotification, {extends: 'li'});
 customElements.define('umbrella-sidebar', UmbrellaSidebar, {extends: 'nav'});
 
-// --- JsResponseHandler
-const jsResponseHandler = new JsResponseHandler();
-configureHandler(jsResponseHandler);
-
-window.umbrella.jsResponseHandler = jsResponseHandler
 
 // --- Bind some elements
 BindUtils.enableAll();
