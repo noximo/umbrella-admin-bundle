@@ -14,7 +14,7 @@ Files generated are :
 
 namespace App\Controller\Admin;
 
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Umbrella\AdminBundle\Lib\Controller\AdminController;
 
 #[Route('/admin')]
@@ -32,7 +32,7 @@ class HomeController extends AdminController
 The `/admin` URL is only a default value, so you can change it.
 There's no need to define an explicit name for this route. Symfony autogenerates a route name (`app_admin_home_index` for this action) but you can define an explicit route name to simplify your code.
 
-The super class `BaseController` provides some helper to use Umbrella Components (`DataTable`, `JsResponse` ...), this is not mandatory to extend it.
+The super class `AdminController` provides some helper to use Umbrella Components (`DataTable`, `JsResponse` ...), this is not mandatory to extend it.
 
 
 #### Twig template

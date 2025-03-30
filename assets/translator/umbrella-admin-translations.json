@@ -54,7 +54,7 @@
         "password_resetting.error.cause1": "It has been more than 24 hours since you requested a password reset. You can do a new <a href=\"%url%\" class=\"text-primary\">password request<\/a>.",
         "password_resetting.error.cause2": "If you have made more than one request, only the last email will be valid.",
         "password_resetting.success.title": "Check your emails",
-        "password_resetting.success.text": "An email was sent to <b>%email%<\/b>. Check your mailbox and follow instructions given.",
+        "password_resetting.success.text": "<p>If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.<\/p>\n<p>If you don't receive an email please check your spam folder or try again.<\/p>",
         "password_resetting.reset": "Reset your password",
         "password_resetting.back_login_link": "Forget it, <a href=\"%url%\">send me back<\/a> to the sign in screen.",
         "password_resetting.back_login": "Back to sign in screen",

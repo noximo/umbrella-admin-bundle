@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+dev
+---
+ * Datatable search : remove **Searchable** \ **SearchableField** attributes. Use **DoctrineUtils::matchAll()** to perform better fulltext search (BC)
+
 6.4.0
 ---
  * Drop support for php 8.1

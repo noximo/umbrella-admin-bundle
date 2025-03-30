@@ -62,7 +62,6 @@ class MakeTree extends AbstractMaker
 
         $vars = [
             'entity' => $entity,
-            'entity_searchable' => false,
             'repository' => $repository,
             'form' => $form,
             'table' => $table,
@@ -115,19 +114,21 @@ class MakeTree extends AbstractMaker
     {
         $this->writeSuccessMessage($io);
 
-        $io->text([
-            'Next:',
-            '  1) Update your database schema with command <fg=yellow>"php bin/console doctrine:schema:update --force"</>.',
-            '  2) Activate tree extension for StofDoctrineExtensionsBundle (check <href=https://symfony.com/bundles/StofDoctrineExtensionsBundle/current/configuration.html>Documentation</>), example :',
-            <<<'CONFIG'
+        $io->writeln('Next:');
+        $io->writeln('  1) Activate tree extension for StofDoctrineExtensionsBundle (check <href=https://symfony.com/bundles/StofDoctrineExtensionsBundle/current/configuration.html>Documentation</>).');
+        $io->newLine();
+        $io->writeln(<<<'CONFIG'
+            # Example of config
             # packages/config/stof_doctrine_extensions.yaml
             stof_doctrine_extensions:
                 orm:
                     default:
                         tree: true
-            CONFIG,
-            \sprintf('  3) Add section for route <fg=yellow>"%s"</> on your Admin menu.', $route)
-        ]);
+            CONFIG);
+        $io->newLine();
+
+        $io->writeln('  2) Update your database schema with command <fg=yellow>"php bin/console doctrine:schema:update --force"</>.');
+        $io->writeln(\sprintf('  3) Add section for route <fg=yellow>"%s"</> on your Admin menu.', $route));
 
         $io->newLine();
         $io->writeln(\sprintf('Open your browser, go to "%s" and enjoy!', $path));

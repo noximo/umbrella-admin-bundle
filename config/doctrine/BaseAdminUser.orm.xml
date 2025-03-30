@@ -6,7 +6,6 @@
             <generator strategy="AUTO"/>
         </id>
         <field name="createdAt" type="datetime"/>
-        <field name="search" type="text" nullable="true" />
         <field name="active" type="boolean"/>
         <field name="firstname" type="string" length="255" nullable="true"/>
         <field name="lastname" type="string" length="255" nullable="true"/>

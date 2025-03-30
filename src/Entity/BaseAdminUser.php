@@ -5,7 +5,6 @@ namespace Umbrella\AdminBundle\Entity;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Umbrella\AdminBundle\Lib\Search\Attribute\SearchableField;
 
 abstract class BaseAdminUser implements EquatableInterface, \Serializable, UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -13,14 +12,10 @@ abstract class BaseAdminUser implements EquatableInterface, \Serializable, UserI
 
     public \DateTimeInterface $createdAt;
 
-    public ?string $search = null;
-
     public bool $active = true;
 
-    #[SearchableField]
     public ?string $firstname = null;
 
-    #[SearchableField]
     public ?string $lastname = null;
 
     public ?string $password = null;
@@ -30,7 +25,6 @@ abstract class BaseAdminUser implements EquatableInterface, \Serializable, UserI
      */
     public ?string $plainPassword = null;
 
-    #[SearchableField]
     public ?string $email = null;
 
     public ?string $passwordResetToken = null;

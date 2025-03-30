@@ -8,7 +8,7 @@
         {% if options.searchable %}
             <div class="sidebar-search">
                 <i class="mdi mdi-magnify"></i>
-                <input type="text" placeholder="Search ..." class="form-control" autofocus>
+                <input type="text" placeholder="{{ 'label.search...' | trans({}, 'UmbrellaAdmin') }}" class="form-control" autofocus>
             </div>
         {% endif %}
 

@@ -46,7 +46,6 @@ class MakeTable extends AbstractMaker
     public function generate(InputInterface $input, ConsoleStyle $io, Generator $generator): void
     {
         $entityClass = $this->helper->askEntityClass($io);
-        $entitySearchable = $this->helper->askEntitySearchable($io);
         $controllerClass = $this->helper->askControllerClass($io, $this->helper->getDefaultControllerClassFromEntityClass($entityClass));
         $editViewType = $this->helper->askEditViewTypeClass($io);
 
@@ -61,7 +60,6 @@ class MakeTable extends AbstractMaker
 
         $vars = [
             'entity' => $entity,
-            'entity_searchable' => $entitySearchable,
             'repository' => $repository,
             'form' => $form,
             'table' => $table,

@@ -2,10 +2,37 @@
 
 namespace Umbrella\AdminBundle\Utils;
 
+use Doctrine\ORM\Query\Expr\Orx;
+use Doctrine\ORM\QueryBuilder;
+
 class DoctrineUtils
 {
     private function __construct()
     {
+    }
+
+    public static function matchAll(QueryBuilder $qb, array $fields, string $search, string $parameterPrefix = '_match'): void
+    {
+        preg_match_all('/"(?:\\\\.|[^\\\\"])*"|\S+/', $search, $matches);
+        $terms = array_map(static fn ($match) => trim($match, '" '), $matches[0]);
+
+        if (0 === \count($terms) || 0 === \count($fields)) {
+            return;
+        }
+
+        $parameterIndex = 0;
+
+        foreach ($terms as $term) {
+            $parameterName = \sprintf('%s_%d', $parameterPrefix, $parameterIndex++);
+
+            $orX = new Orx();
+            foreach ($fields as $field) {
+                $orX->add(\sprintf('LOWER(CONCAT(%s, \'\')) LIKE :%s', $field, $parameterName));
+            }
+
+            $qb->andWhere($orX);
+            $qb->setParameter($parameterName, '%' . $term . '%');
+        }
     }
 
     /**

@@ -3,7 +3,6 @@
 namespace Umbrella\AdminBundle\DataTable;
 
 use Doctrine\ORM\QueryBuilder;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\RouterInterface;
 use Umbrella\AdminBundle\Entity\BaseAdminUser;
 use Umbrella\AdminBundle\Lib\DataTable\Action\ButtonAddActionType;
@@ -17,6 +16,7 @@ use Umbrella\AdminBundle\Lib\DataTable\DataTableBuilder;
 use Umbrella\AdminBundle\Lib\DataTable\DataTableType;
 use Umbrella\AdminBundle\Lib\Form\SearchType;
 use Umbrella\AdminBundle\UmbrellaAdminConfiguration;
+use Umbrella\AdminBundle\Utils\DoctrineUtils;
 
 class UserTableType extends DataTableType
 {
@@ -75,15 +75,9 @@ class UserTableType extends DataTableType
             'class' => $this->config->userClass(),
             'query' => function (QueryBuilder $qb, $formData) {
                 if (isset($formData['search'])) {
-                    $qb->andWhere('lower(e.search) LIKE :search');
-                    $qb->setParameter('search', '%' . $formData['search'] . '%');
+                    DoctrineUtils::matchAll($qb, ['e.firstname', 'e.lastname', 'e.email'], $formData['search']);
                 }
             }
         ]);
-    }
-
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        parent::configureOptions($resolver);
     }
 }

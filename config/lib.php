@@ -12,15 +12,12 @@ use Umbrella\AdminBundle\Lib\DataTable\DataTableType;
 use Umbrella\AdminBundle\Lib\DataTable\Twig\DataTableExtension;
 use Umbrella\AdminBundle\Lib\Form\Extension\AutoCompleteExtension;
 use Umbrella\AdminBundle\Lib\Form\Extension\FormTypeExtension;
-use Umbrella\AdminBundle\Lib\Form\UmbrellaSelect\UmbrellaSelectConfigurator;
 use Umbrella\AdminBundle\Lib\JsResponse\JsResponseFactory;
 use Umbrella\AdminBundle\Lib\Menu\MenuProvider;
 use Umbrella\AdminBundle\Lib\Menu\MenuRegistry;
 use Umbrella\AdminBundle\Lib\Menu\Twig\MenuExtension;
 use Umbrella\AdminBundle\Lib\Menu\Visitor\MenuCurrentVisitor;
 use Umbrella\AdminBundle\Lib\Menu\Visitor\MenuVisibilityVisitor;
-use Umbrella\AdminBundle\Lib\Search\Doctrine\SearchableEntityListener;
-use Umbrella\AdminBundle\Lib\Search\EntityIndexer;
 
 return static function (ContainerConfigurator $configurator): void {
 
@@ -63,14 +60,6 @@ return static function (ContainerConfigurator $configurator): void {
 
     $services->load('Umbrella\\AdminBundle\\Lib\\DataTable\\Action\\', '../src/Lib/DataTable/Action/*')
         ->tag(DataTableRegistry::TAG_ACTION_TYPE);
-
-    // -- Search -- //
-    $services->set(IndexEntityCommand::class)
-        ->tag('console.command');
-    $services->set(EntityIndexer::class);
-    $services->set(SearchableEntityListener::class)
-        ->tag('doctrine.event_listener', ['event' => Events::prePersist])
-        ->tag('doctrine.event_listener', ['event' => Events::preUpdate]);
 
     // -- Form -- //
     $services->load('Umbrella\\AdminBundle\\Lib\\Form\\', '../src/Lib/Form/*')

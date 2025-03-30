@@ -7,7 +7,6 @@ use Symfony\Bundle\MakerBundle\ConsoleStyle;
 use Symfony\Bundle\MakerBundle\Str;
 use Symfony\Bundle\MakerBundle\Util\ClassNameDetails;
 use Symfony\Component\Console\Question\ChoiceQuestion;
-use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Question\Question;
 
 class MakeHelper
@@ -69,15 +68,6 @@ class MakeHelper
     public function askEditViewTypeClass(ConsoleStyle $io): string
     {
         $question = new ChoiceQuestion('Edit view type', [self::VIEW_MODAL, self::VIEW_PAGE], self::VIEW_MODAL);
-        return $io->askQuestion($question);
-    }
-
-    /**
-     * Ask entity searchable
-     */
-    public function askEntitySearchable(ConsoleStyle $io): bool
-    {
-        $question = new ConfirmationQuestion('Is your entity full-text searchable on table view', true);
         return $io->askQuestion($question);
     }
 
