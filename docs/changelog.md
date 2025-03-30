@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-dev
+6.4.1
 ---
  * Datatable search : remove **Searchable** \ **SearchableField** attributes. Use **DoctrineUtils::matchAll()** to perform better fulltext search (BC)
 
