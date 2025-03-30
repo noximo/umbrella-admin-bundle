@@ -32,9 +32,20 @@
     <br/><br/>
 </p>
 
-## Introduction
-- [Documentation](https://acantepie.github.io/umbrella-admin-bundle/) - How to install and use Umbrella Admin Bundle
-- [Online demo](https://umbrella-corp.dev) - Online demo application using Bundle ([github repo](https://github.com/acantepie/umbrella-admin-demo)).
+## Installation
+UmbrellaAdmin requires PHP 8.2 or higher and Symfony 6.4 or higher. Run the
+following command to install it in your application:
+
+```
+ $ composer require umbrella2/admin-bundle
+ ```
+
+## Documentation
+Read [Documentation](https://acantepie.github.io/umbrella-admin-bundle/) to getting started.
+
+## Demo application
+A demo application showcasing all the features of UmbrellaAdmin is available [here](https://umbrella-corp.dev).<br>
+You can view the demo application's code in this [github repository](https://github.com/acantepie/umbrella-admin-demo).
 
 ## Contributing
 Want to contribute ? Check out the [contributing guidelines](https://acantepie.github.io/umbrella-admin-bundle//#/contributing) to get involved.
